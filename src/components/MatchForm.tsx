@@ -24,6 +24,7 @@ import { Calendar } from "@/components/ui/calendar";
 import { cn } from "@/lib/utils";
 import { toast } from "sonner";
 import { UploadArea } from "./UploadArea";
+import { getAuthHeaders } from "@/lib/authApi";
 
 const matchFormSchema = z.object({
   opponentName: z.string().min(1, "Opponent name is required").max(100),
@@ -59,8 +60,9 @@ export function MatchForm() {
   });
 
   const onSubmit = (data: MatchFormValues) => {
-    console.log("Form submitted:", data);
+    console.log("Form submitted with auth headers:", getAuthHeaders());
     // Navigate to loading screen with match data
+    // The auth token can be used for future API calls
     navigate("/loading", { state: { matchData: data } });
   };
 
