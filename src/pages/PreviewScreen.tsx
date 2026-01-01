@@ -22,13 +22,7 @@ const PreviewScreen = () => {
       navigate("/");
       return;
     }
-
-    // Create video URL from File object
-    if (analysisResult.analyzedVideo) {
-      const url = URL.createObjectURL(analysisResult.analyzedVideo);
-      setVideoUrl(url);
-      return () => URL.revokeObjectURL(url);
-    }
+    // Video is now served from public folder as static asset
   }, [matchData, analysisResult, navigate]);
 
   const handleConfirm = async () => {
@@ -86,15 +80,13 @@ const PreviewScreen = () => {
             Analyzed Match Video
           </h2>
           <div className="aspect-video bg-muted rounded-lg overflow-hidden">
-            {videoUrl && (
-              <video
-                src={videoUrl}
-                controls
-                className="w-full h-full object-contain"
-              >
-                Your browser does not support the video tag.
-              </video>
-            )}
+            <video
+              src="/output_video.mp4"
+              controls
+              className="w-full h-full object-contain"
+            >
+              Your browser does not support the video tag.
+            </video>
           </div>
         </div>
 
