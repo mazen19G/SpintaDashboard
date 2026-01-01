@@ -30,7 +30,6 @@ const matchFormSchema = z.object({
   opponentName: z.string().min(1, "Opponent name is required").max(100),
   opponentLogo: z.instanceof(File).optional(),
   matchDate: z.date({ required_error: "Match date is required" }),
-  matchType: z.enum(["home", "away"], { required_error: "Match type is required" }),
   homeLineup: z.instanceof(File).optional(),
   awayLineup: z.instanceof(File).optional(),
   homeScore: z.string().regex(/^\d+$/, "Must be a number").optional(),
@@ -47,7 +46,6 @@ export function MatchForm() {
   const [awayLineup, setAwayLineup] = useState<File | null>(null);
   const [matchVideo, setMatchVideo] = useState<File | null>(null);
   const [selectedDate, setSelectedDate] = useState<Date>();
-  const [matchType, setMatchType] = useState<string>("");
 
   const {
     register,
@@ -136,29 +134,6 @@ export function MatchForm() {
         )}
       </div>
 
-      {/* Match Type */}
-      <div>
-        <Label className="text-base font-semibold">Match Type</Label>
-        <Select
-          value={matchType}
-          onValueChange={(value) => {
-            setMatchType(value);
-            setValue("matchType", value as "home" | "away");
-          }}
-        >
-          <SelectTrigger className="mt-2">
-            <SelectValue placeholder="Select match type" />
-          </SelectTrigger>
-          <SelectContent>
-            <SelectItem value="home">Home Game</SelectItem>
-            <SelectItem value="away">Away Game</SelectItem>
-          </SelectContent>
-        </Select>
-        {errors.matchType && (
-          <p className="mt-1 text-sm text-destructive">{errors.matchType.message}</p>
-        )}
-      </div>
-
       {/* Team Lineups */}
       <div>
         <Label className="text-base font-semibold mb-4 block">Team Lineups</Label>
@@ -197,7 +172,7 @@ export function MatchForm() {
           <div className="flex-1">
             <Input
               {...register("homeScore")}
-              placeholder="Home"
+              placeholder="Our Score"
               className="text-center text-lg font-semibold"
             />
           </div>
@@ -205,7 +180,7 @@ export function MatchForm() {
           <div className="flex-1">
             <Input
               {...register("awayScore")}
-              placeholder="Away"
+              placeholder="Opponent Score"
               className="text-center text-lg font-semibold"
             />
           </div>

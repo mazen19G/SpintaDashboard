@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
-import logo from "@/assets/LOGO.png";
+import logo from "@/assets/icon.svg";
 import { Button } from "@/components/ui/button";
 import { confirmAnalysis } from "@/lib/mockApi";
 import { toast } from "sonner";
@@ -135,7 +135,7 @@ const PreviewScreen = () => {
           <Button
             onClick={handleReanalyze}
             variant="outline"
-            className="w-full text-base py-6"
+            className="w-full text-base py-6 text-[#FF3000]"
           >
             Re-analyze Match
           </Button>

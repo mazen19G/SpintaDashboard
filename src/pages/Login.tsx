@@ -3,7 +3,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import logo from "@/assets/LOGO.png";
+import logo from "@/assets/icon.svg";
 import nlogo from "@/assets/nlogo.png";
 import slogan from "@/assets/slogan.png";
 import { Button } from "@/components/ui/button";

@@ -171,6 +171,7 @@
   },
   "active": "3c843c1e87b52f5f",
   "lastOpenFiles": [
+    "output_video.avi",
     "src/lib/authApi.ts",
     "src/assets/nlogo.png",
     "src/assets/slogan.png",
@@ -187,7 +188,6 @@
     "node_modules/@types/d3-array/package.json",
     "src/pages/Login.tsx",
     "node_modules/@types/prop-types/package.json",
-    "node_modules/prop-types/package.json",
     "src/assets/icon.svg",
     "icon.svg",
     "src/assets/icon-01.svg",
