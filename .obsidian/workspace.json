@@ -171,6 +171,10 @@
   },
   "active": "3c843c1e87b52f5f",
   "lastOpenFiles": [
+    "src/assets/icon.svg",
+    "icon.svg",
+    "src/assets/icon-01.svg",
+    "icon-01.svg",
     "vite.config.ts.timestamp-1767306477834-bb8d0391e698b8.mjs",
     "src/assets/LOGO.png",
     "vite.config.ts.timestamp-1767305138740-d15d9f78e93fe8.mjs",
@@ -182,7 +186,6 @@
     "node_modules/@radix-ui/react-slider/dist/index.mjs",
     "node_modules/@radix-ui/react-slider/dist/index.js.map",
     "node_modules/@radix-ui/react-slider/dist/index.js",
-    "node_modules/@radix-ui/react-slider/dist/index.d.ts",
     "node_modules/loose-envify/README.md",
     "node_modules/locate-path/readme.md",
     "node_modules/is-glob/README.md",
