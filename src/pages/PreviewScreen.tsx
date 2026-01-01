@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
-import spintaLogo from "@/assets/spinta-logo.png";
+import logo from "@/assets/LOGO.png";
 import { Button } from "@/components/ui/button";
 import { confirmAnalysis } from "@/lib/mockApi";
 import { toast } from "sonner";
@@ -62,9 +62,9 @@ const PreviewScreen = () => {
       <header className="border-b border-border bg-card">
         <div className="container mx-auto px-6 py-6 flex justify-center">
           <img
-            src={spintaLogo}
-            alt="Spinta Stats Logo"
-            className="h-16 md:h-20 object-contain"
+            src={logo}
+            alt="Logo"
+            className="h-32 md:h-32 object-contain"
           />
         </div>
       </header>

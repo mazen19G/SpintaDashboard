@@ -29,7 +29,6 @@ const matchFormSchema = z.object({
   opponentName: z.string().min(1, "Opponent name is required").max(100),
   opponentLogo: z.instanceof(File).optional(),
   matchDate: z.date({ required_error: "Match date is required" }),
-  matchTime: z.string().min(1, "Match time is required"),
   matchType: z.enum(["home", "away"], { required_error: "Match type is required" }),
   homeLineup: z.instanceof(File).optional(),
   awayLineup: z.instanceof(File).optional(),
@@ -101,55 +100,38 @@ export function MatchForm() {
         </div>
       </div>
 
-      {/* Match Date and Time */}
-      <div className="grid grid-cols-2 gap-6">
-        <div>
-          <Label className="text-base font-semibold">Match Date</Label>
-          <Popover>
-            <PopoverTrigger asChild>
-              <Button
-                variant="outline"
-                className={cn(
-                  "w-full justify-start text-left font-normal mt-2",
-                  !selectedDate && "text-muted-foreground"
-                )}
-              >
-                <CalendarIcon className="mr-2 h-4 w-4" />
-                {selectedDate ? format(selectedDate, "dd/MM/yyyy") : "dd/mm/yyyy"}
-              </Button>
-            </PopoverTrigger>
-            <PopoverContent className="w-auto p-0" align="start">
-              <Calendar
-                mode="single"
-                selected={selectedDate}
-                onSelect={(date) => {
-                  setSelectedDate(date);
-                  if (date) setValue("matchDate", date);
-                }}
-                initialFocus
-                className="pointer-events-auto"
-              />
-            </PopoverContent>
-          </Popover>
-          {errors.matchDate && (
-            <p className="mt-1 text-sm text-destructive">{errors.matchDate.message}</p>
-          )}
-        </div>
-
-        <div>
-          <Label htmlFor="matchTime" className="text-base font-semibold">
-            Match Time
-          </Label>
-          <Input
-            id="matchTime"
-            type="time"
-            {...register("matchTime")}
-            className="mt-2"
-          />
-          {errors.matchTime && (
-            <p className="mt-1 text-sm text-destructive">{errors.matchTime.message}</p>
-          )}
-        </div>
+      {/* Match Date */}
+      <div>
+        <Label className="text-base font-semibold">Match Date</Label>
+        <Popover>
+          <PopoverTrigger asChild>
+            <Button
+              variant="outline"
+              className={cn(
+                "w-full justify-start text-left font-normal mt-2",
+                !selectedDate && "text-muted-foreground"
+              )}
+            >
+              <CalendarIcon className="mr-2 h-4 w-4" />
+              {selectedDate ? format(selectedDate, "dd/MM/yyyy") : "dd/mm/yyyy"}
+            </Button>
+          </PopoverTrigger>
+          <PopoverContent className="w-auto p-0" align="start">
+            <Calendar
+              mode="single"
+              selected={selectedDate}
+              onSelect={(date) => {
+                setSelectedDate(date);
+                if (date) setValue("matchDate", date);
+              }}
+              initialFocus
+              className="pointer-events-auto"
+            />
+          </PopoverContent>
+        </Popover>
+        {errors.matchDate && (
+          <p className="mt-1 text-sm text-destructive">{errors.matchDate.message}</p>
+        )}
       </div>
 
       {/* Match Type */}
