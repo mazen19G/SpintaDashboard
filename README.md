@@ -1,73 +1,133 @@
-# Welcome to your Lovable project
+# Spinta Stats - Admin Dashboard
 
-## Project info
+A modern admin panel for managing soccer match data and statistics. This application allows coaches and administrators to upload match data, process match videos, and analyze player performance using StatsBomb data format.
 
-**URL**: https://lovable.dev/projects/ca938041-b35a-45e5-97d6-92c2e8914b53
+## Features
 
-## How can I edit this code?
+- **Authentication System**: Secure login for coaches and administrators
+- **Match Data Entry**: Easy-to-use form for entering match details including:
+  - Opponent team information and logo
+  - Match date
+  - Home and away team lineups
+  - Match scores
+  - Match video upload
+- **Match Processing**: Simulated AI-powered analysis with multi-step loading screens
+- **Data Visualization**: Preview and review match analysis data before saving
+- **StatsBomb Integration**: Support for StatsBomb JSON event data format
 
-There are several ways of editing your application.
+## Tech Stack
 
-**Use Lovable**
+This project is built with modern web technologies:
 
-Simply visit the [Lovable Project](https://lovable.dev/projects/ca938041-b35a-45e5-97d6-92c2e8914b53) and start prompting.
+- **Vite** - Fast build tool and dev server
+- **React** - UI library with TypeScript
+- **TypeScript** - Type-safe development
+- **React Router** - Client-side routing
+- **shadcn/ui** - High-quality UI components
+- **Tailwind CSS** - Utility-first CSS framework
+- **React Query** - Data fetching and state management
+- **React Hook Form** - Form handling with validation
+- **Zod** - Schema validation
 
-Changes made via Lovable will be committed automatically to this repo.
+## Getting Started
 
-**Use your preferred IDE**
+### Prerequisites
 
-If you want to work locally using your own IDE, you can clone this repo and push changes. Pushed changes will also be reflected in Lovable.
+- Node.js (v18 or higher recommended)
+- npm or bun package manager
 
-The only requirement is having Node.js & npm installed - [install with nvm](https://github.com/nvm-sh/nvm#installing-and-updating)
+### Installation
 
-Follow these steps:
-
-```sh
-# Step 1: Clone the repository using the project's Git URL.
-git clone <YOUR_GIT_URL>
-
-# Step 2: Navigate to the project directory.
-cd <YOUR_PROJECT_NAME>
-
-# Step 3: Install the necessary dependencies.
-npm i
-
-# Step 4: Start the development server with auto-reloading and an instant preview.
-npm run dev
+1. Clone the repository:
+```bash
+git clone <repository-url>
+cd SpintaDashboard
 ```
 
-**Edit a file directly in GitHub**
+2. Install dependencies:
+```bash
+npm install
+# or
+bun install
+```
 
-- Navigate to the desired file(s).
-- Click the "Edit" button (pencil icon) at the top right of the file view.
-- Make your changes and commit the changes.
+3. Start the development server:
+```bash
+npm run dev
+# or
+bun run dev
+```
 
-**Use GitHub Codespaces**
+The application will be available at `http://localhost:8080`
 
-- Navigate to the main page of your repository.
-- Click on the "Code" button (green button) near the top right.
-- Select the "Codespaces" tab.
-- Click on "New codespace" to launch a new Codespace environment.
-- Edit files directly within the Codespace and commit and push your changes once you're done.
+## Available Scripts
 
-## What technologies are used for this project?
+- `npm run dev` - Start the development server with hot reload
+- `npm run build` - Build the production bundle
+- `npm run build:dev` - Build with development mode
+- `npm run lint` - Run ESLint to check code quality
+- `npm run preview` - Preview the production build locally
 
-This project is built with:
+## Project Structure
 
-- Vite
-- TypeScript
-- React
-- shadcn-ui
-- Tailwind CSS
+```
+SpintaDashboard/
+├── src/
+│   ├── assets/          # Static assets (images, icons)
+│   ├── components/      # Reusable React components
+│   │   ├── ui/         # shadcn/ui components
+│   │   └── MatchForm.tsx
+│   ├── pages/          # Page components
+│   │   ├── Login.tsx
+│   │   ├── Index.tsx
+│   │   ├── LoadingScreen.tsx
+│   │   ├── PreviewScreen.tsx
+│   │   └── NotFound.tsx
+│   ├── hooks/          # Custom React hooks
+│   ├── lib/            # Utility functions
+│   ├── App.tsx         # Main app component
+│   └── main.tsx        # Application entry point
+├── public/             # Public static files
+└── index.html          # HTML template
+```
 
-## How can I deploy this project?
+## API Integration
 
-Simply open [Lovable](https://lovable.dev/projects/ca938041-b35a-45e5-97d6-92c2e8914b53) and click on Share -> Publish.
+The application integrates with the Spinta Backend API:
 
-## Can I connect a custom domain to my Lovable project?
+- **Base URL**: `https://spinta-backend.vercel.app/api`
+- **Authentication**: JWT token-based
+- **Login Endpoint**: `POST /auth/login`
+- **Save Match**: `POST /coach/matches`
 
-Yes, you can!
+## Development
 
-To connect a domain, navigate to Project > Settings > Domains and click Connect Domain.
+### Code Style
 
-Read more here: [Setting up a custom domain](https://docs.lovable.dev/features/custom-domain#custom-domain)
+This project follows standard TypeScript and React best practices:
+- Component-based architecture
+- TypeScript for type safety
+- Functional components with hooks
+- CSS modules with Tailwind utility classes
+
+### Linting
+
+Run the linter to check code quality:
+```bash
+npm run lint
+```
+
+## Contributing
+
+1. Create a new branch for your feature
+2. Make your changes
+3. Test thoroughly
+4. Submit a pull request
+
+## License
+
+This project is private and proprietary.
+
+## Support
+
+For issues or questions, please contact the development team.
