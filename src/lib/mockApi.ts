@@ -38,36 +38,81 @@ export async function analyzeMatch(videoFile: File, matchData: any) {
   });
 }
 
-// PLACEHOLDER: Confirm Analysis Function
+// Save Match Analysis with JWT Authentication
 export async function confirmAnalysis(matchData: any, eventsJson: any, analyzedVideoUrl: string) {
-  // TODO: Replace with actual backend call in future
-  // const response = await fetch('/api/matches/confirm', {
-  //   method: 'POST',
-  //   headers: {
-  //     'Content-Type': 'application/json'
-  //   },
-  //   body: JSON.stringify({
-  //     match_data: matchData,
-  //     events: eventsJson,
-  //     video_url: analyzedVideoUrl
-  //   })
-  // });
-  // return await response.json();
-  
-  // TEMPORARY: Log data and show success
-  console.log('=== PLACEHOLDER: Would send to backend ===');
-  console.log('Match Data:', matchData);
-  console.log('Events JSON:', eventsJson);
-  console.log('Video URL:', analyzedVideoUrl);
-  console.log('==========================================');
-  
-  return new Promise((resolve) => {
-    setTimeout(() => {
-      resolve({
-        success: true,
-        message: 'Match analysis confirmed (placeholder)',
-        match_id: eventsJson.match_id
-      });
-    }, 1000);
+  console.log("=== confirmAnalysis called ===");
+  console.log("matchData:", matchData);
+  console.log("eventsJson sample:", Array.isArray(eventsJson) ? `Array with ${eventsJson.length} events` : eventsJson);
+
+  // Get JWT token from localStorage
+  const token = localStorage.getItem("auth_token");
+  console.log("Auth token present:", !!token);
+
+  if (!token) {
+    throw new Error("Authentication required. Please log in again.");
+  }
+
+  // Create FormData for multipart/form-data request
+  const formData = new FormData();
+
+  // Add match fields
+  const opponentName = matchData.opponentName || "";
+  formData.append("opponent_name", opponentName);
+  console.log("opponent_name:", opponentName);
+
+  // Format match_date to YYYY-MM-DD
+  const matchDate = matchData.matchDate
+    ? new Date(matchData.matchDate).toISOString().split('T')[0]
+    : "";
+  formData.append("match_date", matchDate);
+  console.log("match_date:", matchDate);
+
+  // Home = Our Team, Away = Opponent Team
+  const ourScore = matchData.homeScore || "0";
+  const opponentScore = matchData.awayScore || "0";
+  formData.append("our_score", ourScore);
+  formData.append("opponent_score", opponentScore);
+  console.log("our_score:", ourScore, "opponent_score:", opponentScore);
+
+  // Create JSON file from eventsJson and append as file
+  const jsonBlob = new Blob([JSON.stringify(eventsJson, null, 2)], {
+    type: "application/json",
   });
+  const jsonFile = new File([jsonBlob], "analysis_events.json", {
+    type: "application/json",
+  });
+  formData.append("events_file", jsonFile);
+  console.log("events_file size:", jsonBlob.size, "bytes");
+
+  console.log("Sending POST to:", "https://spinta-backend.vercel.app/api/coach/matches");
+
+  // Send POST request to backend
+  const response = await fetch("https://spinta-backend.vercel.app/api/coach/matches", {
+    method: "POST",
+    headers: {
+      Authorization: `Bearer ${token}`,
+      // Note: Don't set Content-Type for FormData, browser sets it automatically with boundary
+    },
+    body: formData,
+  });
+
+  console.log("Response status:", response.status);
+
+  if (!response.ok) {
+    const errorText = await response.text();
+    console.error("Error response:", errorText);
+
+    let errorData;
+    try {
+      errorData = JSON.parse(errorText);
+    } catch {
+      errorData = { message: errorText };
+    }
+
+    throw new Error(errorData.message || `Failed to save match analysis (${response.status})`);
+  }
+
+  const result = await response.json();
+  console.log("Success response:", result);
+  return result;
 }

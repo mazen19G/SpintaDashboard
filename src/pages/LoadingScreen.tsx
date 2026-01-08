@@ -13,6 +13,12 @@ const loadingMessages = [
   "Almost there...",
 ];
 
+// Admin: Change this to control how long the loading screen displays (in seconds)
+const LOADING_DURATION_SECONDS = 5;
+
+// Admin: Change this to specify which JSON file to load for analysis data
+const ANALYSIS_JSON_FILENAME = "mexico794.json";
+
 const LoadingScreen = () => {
   const location = useLocation();
   const navigate = useNavigate();
@@ -30,17 +36,35 @@ const LoadingScreen = () => {
       setMessageIndex((prev) => (prev + 1) % loadingMessages.length);
     }, 2500);
 
-    // Start analysis
-    analyzeMatch(matchData.matchVideo, matchData).then((result) => {
-      navigate("/preview", {
-        state: {
-          matchData,
-          analysisResult: result,
-        },
-      });
-    });
+    // Navigate to preview after configured duration
+    const loadingTimer = setTimeout(async () => {
+      try {
+        // Fetch the analysis JSON file
+        const response = await fetch(`/${ANALYSIS_JSON_FILENAME}`);
+        const eventsJson = await response.json();
 
-    return () => clearInterval(messageInterval);
+        navigate("/preview", {
+          state: {
+            matchData,
+            analysisResult: { eventsJson },
+          },
+        });
+      } catch (error) {
+        console.error("Failed to load analysis data:", error);
+        // Fallback to empty data if fetch fails
+        navigate("/preview", {
+          state: {
+            matchData,
+            analysisResult: { eventsJson: {} },
+          },
+        });
+      }
+    }, LOADING_DURATION_SECONDS * 1000);
+
+    return () => {
+      clearInterval(messageInterval);
+      clearTimeout(loadingTimer);
+    };
   }, [matchData, navigate]);
 
   return (
