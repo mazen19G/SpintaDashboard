@@ -1,73 +1,59 @@
-# Welcome to your Lovable project
+# Spinta Stats Admin Dashboard
 
-## Project info
+Admin dashboard for managing soccer match analysis. Built with Vite, React, TypeScript, Tailwind CSS, and shadcn-ui components.
 
-**URL**: https://lovable.dev/projects/ca938041-b35a-45e5-97d6-92c2e8914b53
+## Features
+- Match intake flow: add match metadata, upload assets, and trigger analysis.
+- Loading and preview screens showing analyzed events as a timeline or raw JSON.
+- Embedded video preview for analyzed matches.
+- Routing with React Router (`/`, `/dashboard`, `/loading`, `/preview`).
+- Toast notifications and React Query setup for async interactions.
 
-## How can I edit this code?
+## Tech Stack
+- React 18 + TypeScript
+- Vite
+- Tailwind CSS + shadcn-ui (Radix-based components)
+- React Query
 
-There are several ways of editing your application.
+## Getting Started
+### Prerequisites
+- Node.js 18+
+- npm (comes with Node)
 
-**Use Lovable**
-
-Simply visit the [Lovable Project](https://lovable.dev/projects/ca938041-b35a-45e5-97d6-92c2e8914b53) and start prompting.
-
-Changes made via Lovable will be committed automatically to this repo.
-
-**Use your preferred IDE**
-
-If you want to work locally using your own IDE, you can clone this repo and push changes. Pushed changes will also be reflected in Lovable.
-
-The only requirement is having Node.js & npm installed - [install with nvm](https://github.com/nvm-sh/nvm#installing-and-updating)
-
-Follow these steps:
-
+### Installation
 ```sh
-# Step 1: Clone the repository using the project's Git URL.
-git clone <YOUR_GIT_URL>
-
-# Step 2: Navigate to the project directory.
-cd <YOUR_PROJECT_NAME>
-
-# Step 3: Install the necessary dependencies.
-npm i
-
-# Step 4: Start the development server with auto-reloading and an instant preview.
-npm run dev
+npm install
 ```
 
-**Edit a file directly in GitHub**
+### Development
+```sh
+npm run dev
+```
+The app runs on the port shown in the terminal (default: http://localhost:5173).
 
-- Navigate to the desired file(s).
-- Click the "Edit" button (pencil icon) at the top right of the file view.
-- Make your changes and commit the changes.
+### Production Build
+```sh
+npm run build
+npm run preview   # serve the production build locally
+```
 
-**Use GitHub Codespaces**
+## Project Structure
+- `src/pages` — top-level routes (`Login`, `Index`, `LoadingScreen`, `PreviewScreen`, `NotFound`).
+- `src/components` — shared UI (MatchForm, UploadArea) and shadcn-ui primitives.
+- `src/lib` — utilities and mock API helpers.
+- `public` — static assets (e.g., `output_video.mp4`).
 
-- Navigate to the main page of your repository.
-- Click on the "Code" button (green button) near the top right.
-- Select the "Codespaces" tab.
-- Click on "New codespace" to launch a new Codespace environment.
-- Edit files directly within the Codespace and commit and push your changes once you're done.
+## Key Flows
+1) Add match via the dashboard form.
+2) Loading screen simulates analysis.
+3) Preview screen shows timeline/JSON plus video; confirm or re-run analysis.
 
-## What technologies are used for this project?
+## Useful Scripts
+- `npm run dev` — start development server.
+- `npm run build` — build for production.
+- `npm run preview` — serve built assets locally.
+- `npm run lint` — lint the project.
 
-This project is built with:
-
-- Vite
-- TypeScript
-- React
-- shadcn-ui
-- Tailwind CSS
-
-## How can I deploy this project?
-
-Simply open [Lovable](https://lovable.dev/projects/ca938041-b35a-45e5-97d6-92c2e8914b53) and click on Share -> Publish.
-
-## Can I connect a custom domain to my Lovable project?
-
-Yes, you can!
-
-To connect a domain, navigate to Project > Settings > Domains and click Connect Domain.
-
-Read more here: [Setting up a custom domain](https://docs.lovable.dev/features/custom-domain#custom-domain)
+## Notes
+- If you serve your own analyzed video, place it in `public` and point the preview to the correct filename.
+- Authentication and backend calls are stubbed; replace mock APIs with real endpoints when ready.
