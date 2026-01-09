@@ -29,7 +29,7 @@ npm install
 ```sh
 npm run dev
 ```
-The app runs on the port shown in the terminal (default: http://localhost:5173).
+The app runs on the port shown in the terminal (default: http://localhost:8080).
 
 ### Production Build
 ```sh
